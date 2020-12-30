@@ -1,4 +1,4 @@
-package com.id.ac.stiki.doleno.isalarm;
+package com.id.ac.stiki.doleno.isalarm.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.id.ac.stiki.doleno.isalarm.R;
+import com.id.ac.stiki.doleno.isalarm.view.AddAlarm;
 
 public class MainActivity extends AppCompatActivity {
 
