@@ -122,6 +122,7 @@ public class AddAlarm extends AppCompatActivity {
                     }
                 }
                 AppPreference.saveGroup(view.getContext(), AppPreference.getGroup(view.getContext()) + 1);
+                finish();
             }
         });
 

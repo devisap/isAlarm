@@ -113,7 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondary"
-                        android:buttonTint="@color/colorSecondary"
+                        android:buttonTint="@color/colorAccent"
                         android:text="Custom" />
 
                 </RadioGroup>
@@ -131,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondary"
                         android:buttonTint="@color/colorAccent"
-                        android:text="Sunday" />
+                        android:text="Minggu" />
 
                     <CheckBox
                         android:id="@+id/checkBoxMonday"
@@ -139,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondary"
                         android:buttonTint="@color/colorAccent"
-                        android:text="Monday" />
+                        android:text="Senin" />
 
                     <CheckBox
                         android:id="@+id/checkBoxTuesday"
@@ -147,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondary"
                         android:buttonTint="@color/colorAccent"
-                        android:text="Tuesday" />
+                        android:text="Selasa" />
 
                     <CheckBox
                         android:id="@+id/checkBoxWednesday"
@@ -155,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondary"
                         android:buttonTint="@color/colorAccent"
-                        android:text="Wednesday" />
+                        android:text="Rabu" />
 
                     <CheckBox
                         android:id="@+id/checkBoxThursday"
@@ -163,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondary"
                         android:buttonTint="@color/colorAccent"
-                        android:text="Thursday" />
+                        android:text="Kamis" />
 
                     <CheckBox
                         android:id="@+id/checkBoxFriday"
@@ -171,14 +171,15 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondary"
                         android:buttonTint="@color/colorAccent"
-                        android:text="Friday" />
+                        android:text="Jumat" />
 
                     <CheckBox
                         android:id="@+id/checkBoxSaturday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorSecondary"
-                        android:text="Saturday" />
+                        android:buttonTint="@color/colorAccent"
+                        android:text="Sabtu" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
