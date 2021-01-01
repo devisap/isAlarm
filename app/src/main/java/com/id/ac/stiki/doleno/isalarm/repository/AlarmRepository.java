@@ -31,11 +31,11 @@ public class AlarmRepository {
         });
     }
 
-    public void updateAlarm(int id, boolean b){
+    public void updateAlarm(final AlarmModel alarmModel){
         AlarmDatabase.executorService.execute(new Runnable() {
             @Override
             public void run() {
-                alarmDAO.updateAlarm(id, b);
+                alarmDAO.updateAlarm(alarmModel);
             }
         });
     }

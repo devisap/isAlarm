@@ -43,7 +43,12 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtTitle.setText(alarmModels.get(position).title);
-        holder.txtAlarm.setText(alarmModels.get(position).hours+":"+(alarmModels.get(position).minutes));
+        if(alarmModels.get(position).minutes < 10){
+            holder.txtAlarm.setText(alarmModels.get(position).hours+":"+("0"+alarmModels.get(position).minutes));
+        }else{
+            holder.txtAlarm.setText(alarmModels.get(position).hours+":"+(alarmModels.get(position).minutes));
+        }
+
         if(alarmModels.get(position).isRepeat && alarmModels.get(position).isDaily){
             holder.txtStatus.setText("Daily");
         }else if(!alarmModels.get(position).isRepeat && !alarmModels.get(position).isDaily){
@@ -52,23 +57,23 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
             holder.txtStatus.setText("Custom");
         }
 
-        holder.switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                alarmRepository.updateAlarm(alarmModels.get(position).id, b);
-                if(b){
-                    alarmService.createAlarm(holder.itemView.getContext(), alarmModels.get(position));
-                }else{
-                    alarmService.stopAlarm(holder.itemView.getContext(), alarmModels.get(position));
-                }
-            }
-        });
+//        holder.switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                alarmRepository.updateAlarm(alarmModels.get(position));
+////                if(compoundButton.isChecked()){
+////                    alarmService.createAlarm(holder.itemView.getContext(), alarmModels.get(position));
+////                }else{
+////                    alarmService.stopAlarm(holder.itemView.getContext(), alarmModels.get(position));
+////                }
+//            }
+//        });
 
-        if(alarmModels.get(position).isActive){
-            holder.switchStatus.setChecked(true);
-        }else{
-            holder.switchStatus.setChecked(false);
-        }
+//        if(alarmModels.get(position).isActive){
+//            holder.switchStatus.setChecked(true);
+//        }else{
+//            holder.switchStatus.setChecked(false);
+//        }
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
