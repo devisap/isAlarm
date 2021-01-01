@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -16,16 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.id.ac.stiki.doleno.isalarm.R;
 import com.id.ac.stiki.doleno.isalarm.database.AlarmModel;
 import com.id.ac.stiki.doleno.isalarm.repository.AlarmRepository;
+import com.id.ac.stiki.doleno.isalarm.service.AlarmService;
 
 import java.util.List;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
     private List<AlarmModel> alarmModels;
     private AlarmRepository alarmRepository;
+    private AlarmService alarmService;
 
     public AlarmAdapter(List<AlarmModel> alarmModels, Application application) {
         this.alarmModels = alarmModels;
         this.alarmRepository = new AlarmRepository(application);
+        this.alarmService = new AlarmService();
     }
 
 
@@ -46,6 +50,24 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
             holder.txtStatus.setText("Once");
         }else if(alarmModels.get(position).isRepeat && !alarmModels.get(position).isDaily){
             holder.txtStatus.setText("Custom");
+        }
+
+        holder.switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                alarmRepository.updateAlarm(alarmModels.get(position).id, b);
+                if(b){
+                    alarmService.createAlarm(holder.itemView.getContext(), alarmModels.get(position));
+                }else{
+                    alarmService.stopAlarm(holder.itemView.getContext(), alarmModels.get(position));
+                }
+            }
+        });
+
+        if(alarmModels.get(position).isActive){
+            holder.switchStatus.setChecked(true);
+        }else{
+            holder.switchStatus.setChecked(false);
         }
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {

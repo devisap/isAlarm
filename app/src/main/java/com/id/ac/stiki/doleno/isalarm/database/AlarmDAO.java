@@ -17,6 +17,9 @@ public interface AlarmDAO {
     @Insert
     public void insertAlarm(AlarmModel alarmModel);
 
+    @Query("UPDATE AlarmModel SET isActive = :isActive WHERE id = :id")
+    public void updateAlarm(int id, boolean isActive);
+
     @Delete
     public void deleteAlarm(AlarmModel alarmModel);
 }

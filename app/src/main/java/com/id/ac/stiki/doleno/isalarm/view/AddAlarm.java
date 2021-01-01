@@ -77,6 +77,7 @@ public class AddAlarm extends AppCompatActivity {
                     Log.e("minutes", String.valueOf(model.minutes));
                     Log.e("isRepeat", String.valueOf(model.isRepeat));
                     Log.e("isDaily", String.valueOf(model.isDaily));
+                    Log.e("isActive", String.valueOf(model.isActive));
                 }
             }
         });
@@ -164,6 +165,7 @@ public class AddAlarm extends AppCompatActivity {
         alarmModel.isRepeat = checkBoxRepeat.isChecked();
         alarmModel.isDaily = isDaily;
         alarmModel.date = date;
+        alarmModel.isActive = true;
         AppPreference.saveCode(this, (AppPreference.getCode(this) + 1));
         return alarmModel;
     }

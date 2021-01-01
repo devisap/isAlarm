@@ -31,6 +31,15 @@ public class AlarmRepository {
         });
     }
 
+    public void updateAlarm(int id, boolean b){
+        AlarmDatabase.executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                alarmDAO.updateAlarm(id, b);
+            }
+        });
+    }
+
     public void deletAlarm(final AlarmModel alarmModel){
         AlarmDatabase.executorService.execute(new Runnable() {
             @Override

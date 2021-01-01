@@ -32,6 +32,9 @@ public class AlarmModel {
     @ColumnInfo (name = "isDaily")
     public boolean isDaily;
 
+    @ColumnInfo (name = "isActive")
+    public boolean isActive;
+
     @ColumnInfo (name = "date")
     public int date;
 
