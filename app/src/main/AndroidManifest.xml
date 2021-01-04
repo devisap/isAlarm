@@ -3,6 +3,7 @@
     package="com.id.ac.stiki.doleno.isalarm">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"

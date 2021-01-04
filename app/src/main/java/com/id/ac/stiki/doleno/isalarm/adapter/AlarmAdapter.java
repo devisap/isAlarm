@@ -25,6 +25,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     private List<AlarmModel> alarmModels;
     private AlarmRepository alarmRepository;
     private AlarmService alarmService;
+    private String titleMinutes, titleHours;
 
     public AlarmAdapter(List<AlarmModel> alarmModels, Application application) {
         this.alarmModels = alarmModels;
@@ -42,12 +43,20 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtTitle.setText(alarmModels.get(position).title);
         if(alarmModels.get(position).minutes < 10){
-            holder.txtAlarm.setText(alarmModels.get(position).hours+":"+("0"+alarmModels.get(position).minutes));
+            titleMinutes = "0"+alarmModels.get(position).minutes;
         }else{
-            holder.txtAlarm.setText(alarmModels.get(position).hours+":"+(alarmModels.get(position).minutes));
+            titleMinutes = String.valueOf(alarmModels.get(position).minutes);
         }
+
+        if(alarmModels.get(position).hours < 10){
+            titleHours = "0"+alarmModels.get(position).hours;
+        }else{
+            titleHours = String.valueOf(alarmModels.get(position).hours);
+        }
+
+        holder.txtTitle.setText(alarmModels.get(position).title);
+        holder.txtAlarm.setText(titleHours+":"+titleMinutes);
 
         if(alarmModels.get(position).isRepeat && alarmModels.get(position).isDaily){
             holder.txtStatus.setText("Daily");

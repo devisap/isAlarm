@@ -23,6 +23,7 @@ public class AlarmBroadcast extends BroadcastReceiver {
         i.setClassName("com.id.ac.stiki.doleno.isalarm", "com.id.ac.stiki.doleno.isalarm.view.AlarmActive");
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.putExtra("ID", intent.getIntExtra("ID", 0));
+        i.putExtra("TITLE", intent.getStringExtra("TITLE"));
         i.putExtra("HOUR", intent.getIntExtra("HOUR", 0));
         i.putExtra("MINUTE", intent.getIntExtra("MINUTE", 0));
         i.putExtra("REPEAT", intent.getBooleanExtra("REPEAT", false));

@@ -31,6 +31,7 @@ public class AlarmService {
         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         intent.putExtra("ID", model.id);
+        intent.putExtra("TITLE", model.title);
         intent.putExtra("HOUR", model.hours);
         intent.putExtra("MINUTE", model.minutes);
         intent.putExtra("REPEAT", model.isRepeat);
