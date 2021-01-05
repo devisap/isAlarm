@@ -22,6 +22,8 @@ public class AlarmRepository {
         return alarmDAO.getAlarm();
     }
 
+    public List<AlarmModel> getGroupAlarm(int group){return alarmDAO.getGroupAlarm(group);}
+
     public void insertAlarm (final AlarmModel alarmModel){
         AlarmDatabase.executorService.execute(new Runnable() {
             @Override
@@ -31,11 +33,11 @@ public class AlarmRepository {
         });
     }
 
-    public void updateAlarm(final AlarmModel alarmModel){
+    public void updateAlarm(int id, boolean b){
         AlarmDatabase.executorService.execute(new Runnable() {
             @Override
             public void run() {
-                alarmDAO.updateAlarm(alarmModel);
+                alarmDAO.updateAlarm(id, b);
             }
         });
     }

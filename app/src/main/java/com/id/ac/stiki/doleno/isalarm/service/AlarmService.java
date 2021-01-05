@@ -55,7 +55,7 @@ public class AlarmService {
     public void stopAlarm(Context context, AlarmModel model) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmBroadcast.class);
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, model.id, intent, 0);
+        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, model.code, intent, 0);
         alarmManager.cancel(alarmPendingIntent);
         //this.started = false;
 

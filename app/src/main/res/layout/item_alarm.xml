@@ -47,11 +47,27 @@
                     android:textColor="@color/colorSecondary"
                     />
             </LinearLayout>
-            <Switch
+<!--            <Switch-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:id="@+id/switch_status"-->
+<!--                />-->
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:id="@+id/switch_status"
+                android:text="OFF"
+                android:id="@+id/btn_off"
+                android:visibility="gone"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="ON"
+                android:id="@+id/btn_on"
+                android:backgroundTint="@color/colorAccent"
                 />
         </LinearLayout>
         <View

@@ -3,15 +3,19 @@ package com.id.ac.stiki.doleno.isalarm.adapter;
 import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.id.ac.stiki.doleno.isalarm.R;
@@ -26,11 +30,13 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     private AlarmRepository alarmRepository;
     private AlarmService alarmService;
     private String titleMinutes, titleHours;
+    private Application application;
 
     public AlarmAdapter(List<AlarmModel> alarmModels, Application application) {
         this.alarmModels = alarmModels;
         this.alarmRepository = new AlarmRepository(application);
         this.alarmService = new AlarmService();
+        this.application = application;
     }
 
 
@@ -63,26 +69,82 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
         }else if(!alarmModels.get(position).isRepeat && !alarmModels.get(position).isDaily){
             holder.txtStatus.setText("Once");
         }else if(alarmModels.get(position).isRepeat && !alarmModels.get(position).isDaily){
-            holder.txtStatus.setText("Custom");
+            Log.e("Size: ", String.valueOf(alarmRepository.getGroupAlarm(alarmModels.get(position).group).size()));
+            String detStatus = "";
+            for (AlarmModel model: alarmRepository.getGroupAlarm(alarmModels.get(position).group)
+                 ) {
+                    if(model.date == 1){
+                        detStatus += "Ming ";
+                    }else if(model.date == 2){
+                        detStatus += "Sen ";
+                    }else if(model.date == 3){
+                        detStatus += "Sel ";
+                    }else if(model.date == 4){
+                        detStatus += "Rab ";
+                    }else if(model.date == 5){
+                        detStatus += "Kam ";
+                    }else if(model.date == 6){
+                        detStatus += "Jum ";
+                    }else if(model.date == 7){
+                        detStatus += "Sab ";
+                    }
+                holder.txtStatus.setText(detStatus);
+            }
+//            alarmRepository.getGroupAlarm(alarmModels.get(position).group).observe(application., new Observer<List<AlarmModel>>() {
+//                @Override
+//                public void onChanged(List<AlarmModel> alarmModels) {
+//                    String detStatus = "";
+//                    for (AlarmModel model: alarmModels
+//                         ) {
+//                        if(model.date == 1){
+//                            detStatus += "Ming ";
+//                        }else if(model.date == 2){
+//                            detStatus += "Sen ";
+//                        }else if(model.date == 3){
+//                            detStatus += "Sel ";
+//                        }else if(model.date == 4){
+//                            detStatus += "Rab ";
+//                        }else if(model.date == 5){
+//                            detStatus += "Kam ";
+//                        }else if(model.date == 6){
+//                            detStatus += "Jum ";
+//                        }else if(model.date == 7){
+//                            detStatus += "Sab ";
+//                        }
+//                    }
+//                    holder.txtStatus.setText(detStatus);
+//                }
+//            });
         }
 
-//        holder.switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                alarmRepository.updateAlarm(alarmModels.get(position));
-////                if(compoundButton.isChecked()){
-////                    alarmService.createAlarm(holder.itemView.getContext(), alarmModels.get(position));
-////                }else{
-////                    alarmService.stopAlarm(holder.itemView.getContext(), alarmModels.get(position));
-////                }
-//            }
-//        });
+        holder.btnOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alarmRepository.updateAlarm(alarmModels.get(position).id, false);
+                alarmService.stopAlarm(holder.itemView.getContext(), alarmModels.get(position));
+                Log.e("id: ", String.valueOf(alarmModels.get(position).id));
+                Log.e("isActive: ", String.valueOf(alarmModels.get(position).isActive));
+            }
+        });
 
-//        if(alarmModels.get(position).isActive){
-//            holder.switchStatus.setChecked(true);
-//        }else{
-//            holder.switchStatus.setChecked(false);
-//        }
+        holder.btnOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alarmRepository.updateAlarm(alarmModels.get(position).id, true);
+                alarmService.createAlarm(holder.itemView.getContext(), alarmModels.get(position));
+                Log.e("id: ", String.valueOf(alarmModels.get(position).id));
+                Log.e("isActive: ", String.valueOf(alarmModels.get(position).isActive));
+            }
+        });
+
+
+        if(alarmModels.get(position).isActive){
+            holder.btnOff.setVisibility(View.GONE);
+            holder.btnOn.setVisibility(View.VISIBLE);
+        }else{
+            holder.btnOn.setVisibility(View.GONE);
+            holder.btnOff.setVisibility(View.VISIBLE);
+        }
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -93,6 +155,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                alarmService.stopAlarm(holder.itemView.getContext(), alarmModels.get(position));
                                 alarmRepository.deletAlarm(alarmModels.get(position));
                                 dialogInterface.dismiss();
                             }
@@ -117,14 +180,17 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtAlarm, txtStatus, txtTitle;
-        Switch switchStatus;
+//        Switch switchStatus;
+        Button btnOff, btnOn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txt_title);
             txtAlarm = itemView.findViewById(R.id.txt_alarm);
             txtStatus = itemView.findViewById(R.id.txt_status);
-            switchStatus = itemView.findViewById(R.id.switch_status);
+//            switchStatus = itemView.findViewById(R.id.switch_status);
+            btnOff = itemView.findViewById(R.id.btn_off);
+            btnOn = itemView.findViewById(R.id.btn_on);
         }
     }
 }

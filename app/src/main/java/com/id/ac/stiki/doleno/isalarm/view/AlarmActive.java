@@ -42,7 +42,7 @@ import java.util.Objects;
 public class AlarmActive extends AppCompatActivity {
     private int id, hour, minute, code, date, confirmDirection;
     private boolean repeat, daily;
-    private String label, confirmNumber;
+    private String label, confirmNumber, confirmNumberText;
     private AlarmActiveViewModel alarmActiveViewModel;
 
     private SensorManager mSensorManager;
@@ -148,11 +148,10 @@ public class AlarmActive extends AppCompatActivity {
 
 
 //        speech to text
-        checkPermission();
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "id");
         editText = findViewById(R.id.editText);
         findViewById(R.id.button).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -213,7 +212,7 @@ public class AlarmActive extends AppCompatActivity {
                 //displaying the first match
                 if (matches != null){
                     editText.setText(matches.get(0));
-                    if(matches.get(0).equals(confirmNumber)){
+                    if(matches.get(0).equalsIgnoreCase(confirmNumber) || matches.get(0).equalsIgnoreCase(confirmNumberText)){
                         clearNotification();
                         finish();
                     }
@@ -232,7 +231,7 @@ public class AlarmActive extends AppCompatActivity {
         });
 
 //        randSelectStatus = (int) (Math.random() * 3) + 1;
-        randSelectStatus = 2;
+        randSelectStatus = 3;
         if(randSelectStatus == 1){
             section_shake.setVisibility(View.VISIBLE);
         }else if(randSelectStatus == 2){
@@ -301,7 +300,7 @@ public class AlarmActive extends AppCompatActivity {
             }else if(randSelectStatus == 3){
                 //            light sensor
                 mLightQuantity = event.values[0];
-                if(mLightQuantity >= 5){
+                if(mLightQuantity >= 150){
                     clearNotification();
                     finish();
                 }
@@ -343,16 +342,6 @@ public class AlarmActive extends AppCompatActivity {
         super.onPause();
     }
 
-    private void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                        Uri.parse("package:" + getPackageName()));
-                startActivity(intent);
-                finish();
-            }
-        }
-    }
 
     public void setDirection(){
         int randDirection = (int) (Math.random() * 3);
@@ -386,42 +375,52 @@ public class AlarmActive extends AppCompatActivity {
             case 0:
                 img_number.setImageResource(R.drawable.ic_zero);
                 confirmNumber = "0";
+                confirmNumberText = "nol";
                 break;
             case 1:
                 img_number.setImageResource(R.drawable.ic_one);
                 confirmNumber = "1";
+                confirmNumberText = "satu";
                 break;
             case 2:
                 img_number.setImageResource(R.drawable.ic_two);
                 confirmNumber = "2";
+                confirmNumberText = "dua";
                 break;
             case 3:
                 img_number.setImageResource(R.drawable.ic_three);
                 confirmNumber = "3";
+                confirmNumberText = "tiga";
                 break;
             case 4:
                 img_number.setImageResource(R.drawable.ic_four);
                 confirmNumber = "4";
+                confirmNumberText = "empat";
                 break;
             case 5:
                 img_number.setImageResource(R.drawable.ic_five);
                 confirmNumber = "5";
+                confirmNumberText = "lima";
                 break;
             case 6:
                 img_number.setImageResource(R.drawable.ic_six);
                 confirmNumber = "6";
+                confirmNumberText = "enam";
                 break;
             case 7:
                 img_number.setImageResource(R.drawable.ic_seven);
                 confirmNumber = "7";
+                confirmNumberText = "tujuh";
                 break;
             case 8:
                 img_number.setImageResource(R.drawable.ic_eight);
                 confirmNumber = "8";
+                confirmNumberText = "delapan";
                 break;
             case 9:
                 img_number.setImageResource(R.drawable.ic_nine);
                 confirmNumber = "9";
+                confirmNumberText = "sembilan";
                 break;
         }
     }
