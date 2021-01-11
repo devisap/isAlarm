@@ -38,6 +38,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Random;
 
 public class AlarmActive extends AppCompatActivity {
     private int id, hour, minute, code, date, confirmDirection;
@@ -231,7 +232,7 @@ public class AlarmActive extends AppCompatActivity {
             }
         });
 
-        randSelectStatus = (int) (Math.random() * 3) + 1;
+        randSelectStatus = new Random().nextInt(4) + 1;
 //        randSelectStatus = 4;
         if(randSelectStatus == 1){
             section_shake.setVisibility(View.VISIBLE);
