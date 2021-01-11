@@ -115,7 +115,7 @@ public class AddAlarm extends AppCompatActivity {
                         }
 
                         if (checkBoxSaturday.isChecked()) {
-                            alarmDetailModelList.add(addAlarmData(radioButtonDaily.isChecked(), Calendar.FRIDAY));
+                            alarmDetailModelList.add(addAlarmData(radioButtonDaily.isChecked(), Calendar.SATURDAY));
                         }
                         addAlarmViewModel.insertMultipleAlarm(alarmDetailModelList);
                     } else {

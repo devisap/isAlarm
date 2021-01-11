@@ -120,11 +120,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hidupkan lampu kamarmu !"
+            android:text="Hidupkan lampu kamarmu capai intensitas cahaya lebih dari 150 !"
             android:textColor="#4a4a4a"
             android:gravity="center"
             android:textSize="16sp"
             android:layout_marginTop="100dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="120"
+            android:gravity="center"
+            android:textSize="44sp"
+            android:textColor="#4a4a4a"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:id="@+id/txt_currentIntensityLight"
             />
     </LinearLayout>
     <LinearLayout

@@ -62,7 +62,7 @@ public class AlarmActive extends AppCompatActivity {
     private Intent mSpeechRecognizerIntent;
 
     private EditText editText;
-    private TextView txt_label, txt_alarm, txt_direction, txt_currentDirection, txt_currentShake;
+    private TextView txt_label, txt_alarm, txt_direction, txt_currentDirection, txt_currentShake, txt_currentIntensityLight;
     private String titleMinutes, titleHours;
     private ImageView img_direction, img_number;
     private LinearLayout section_shake, section_direction, section_light, section_voice;
@@ -104,6 +104,7 @@ public class AlarmActive extends AppCompatActivity {
         txt_direction = findViewById(R.id.txt_direction);
         txt_currentDirection = findViewById(R.id.txt_currentDirection);
         txt_currentShake = findViewById(R.id.txt_currentShake);
+        txt_currentIntensityLight = findViewById(R.id.txt_currentIntensityLight);
         img_direction = findViewById(R.id.img_direction);
         img_number = findViewById(R.id.img_number);
         section_shake = findViewById(R.id.section_shake);
@@ -230,8 +231,8 @@ public class AlarmActive extends AppCompatActivity {
             }
         });
 
-//        randSelectStatus = (int) (Math.random() * 3) + 1;
-        randSelectStatus = 3;
+        randSelectStatus = (int) (Math.random() * 3) + 1;
+//        randSelectStatus = 4;
         if(randSelectStatus == 1){
             section_shake.setVisibility(View.VISIBLE);
         }else if(randSelectStatus == 2){
@@ -300,6 +301,7 @@ public class AlarmActive extends AppCompatActivity {
             }else if(randSelectStatus == 3){
                 //            light sensor
                 mLightQuantity = event.values[0];
+                txt_currentIntensityLight.setText(String.valueOf(mLightQuantity));
                 if(mLightQuantity >= 150){
                     clearNotification();
                     finish();

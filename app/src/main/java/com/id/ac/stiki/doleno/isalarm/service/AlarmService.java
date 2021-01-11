@@ -18,6 +18,9 @@ public class AlarmService {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         if (model.isRepeat && !model.isDaily) {
+            if(calendar.get(Calendar.DAY_OF_WEEK) > model.date){
+                calendar.add(Calendar.DATE, 7 - model.date);
+            }
             calendar.set(Calendar.DAY_OF_WEEK, model.date);
         }
         calendar.set(Calendar.HOUR_OF_DAY, model.hours);
@@ -69,7 +72,8 @@ public class AlarmService {
         if (model.isRepeat && model.isDaily) {
             calendar.add(Calendar.DATE, 1);
         } else if (model.isRepeat && !model.isDaily) {
-            calendar.set(Calendar.DAY_OF_WEEK, model.date);
+//            calendar.set(Calendar.DAY_OF_WEEK, model.date);
+            calendar.add(Calendar.DATE, 7);
         }
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, model.hours);

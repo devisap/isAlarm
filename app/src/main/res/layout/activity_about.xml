@@ -25,7 +25,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Larikuy v1 by:"
+                    android:text="isALarm v1 by:"
                     android:textSize="23dp"
                     android:layout_marginTop="240dp"
                     android:textColor="#eee"
